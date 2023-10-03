@@ -1,6 +1,6 @@
 from django.db import models
 from django.urls import reverse
-
+  
 class Portfolio(models.Model):
     
     title = models.CharField(max_length=200)
@@ -10,7 +10,7 @@ class Portfolio(models.Model):
     
     #Define default String to return the name for representing the Model object."
     def __str__(self):
-        return self.name
+        return self.title
 
     #Returns the URL to access a particular instance of MyModelName.
     #if you define this method then Django will automatically
@@ -46,5 +46,35 @@ class Student(models.Model):
     def get_absolute_url(self):
         return reverse('student-detail', args=[str(self.id)])
     
-
+    portfolio = models.OneToOneField(Portfolio, on_delete=models.CASCADE, unique=True)
     
+class Project(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.CharField(max_length=1000, blank = False, default='')
+    
+    #Define default String to return the name for representing the Model object."
+    def __str__(self):
+        return self.title
+
+    #Returns the URL to access a particular instance of MyModelName.
+    #if you define this method then Django will automatically
+    # add a "View on Site" button to the model's record editing screens in the Admin site
+    def get_absolute_url(self):
+        return reverse('project-detail', args=[str(self.id)])
+    
+    portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE, default = None)
+
+# Model to represent the relationship between projects and portfolios.
+# Each instance of this model will have a reference to a Portfolio and a Project,
+# creating a many-to-many relationship between portfolios and projects. 
+class ProjectsInPortfolio(models.Model):
+
+    #deleting a portfolio will delete associate projects
+    portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE)
+    #deleting a project will not affect the portfolio
+    #Just the entry will be removed from this table
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+
+class Meta:
+    #ensures that each project is associated with only one portfolio
+    unique_together = ('portfolio', 'project')
