@@ -27,3 +27,5 @@ class Student(models.Model):
     # add a "View on Site" button to the model's record editing screens in the Admin site
     def get_absolute_url(self):
         return reverse('student-detail', args=[str(self.id)])
+    
+    portfolio = models.OneToOneField(Portfolio, on_delete=models.CASCADE, unique=True)
