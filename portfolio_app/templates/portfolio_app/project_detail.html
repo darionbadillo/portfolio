@@ -6,20 +6,4 @@
 <p><strong>Description:</strong> {{ project.description }}</p>
 <p><strong>Portfolio:<a href="{{ project.portfolio.get_absolute_url }}">{{ project.portfolio.title }} </a>
 
-        <h2>Project List</h2>
-        <a class="btn btn-primary" href="{% url 'create_project' portfolio.id %}" role="button">New</a>
-
-        {% if projects %}
-        <ul>
-            {% for project in projects %}
-            <li>
-                {{ project.title }}:
-                <a class="btn btn-primary" href="{{ project.get_absolute_url }}" role="button">View</a>
-
-            </li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-
-
-        {% endblock %}
+{% endblock %}
