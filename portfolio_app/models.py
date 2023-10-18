@@ -5,7 +5,7 @@ class Portfolio(models.Model):
     
     title = models.CharField(max_length=200)
     contact_email = models.CharField("UCCS Email", max_length=200)
-    is_active: models.BooleanField(default=False)
+    is_active = models.BooleanField(default=False)
     about = models.CharField(max_length=1000, blank = True, default='')
     
     #Define default String to return the name for representing the Model object."
