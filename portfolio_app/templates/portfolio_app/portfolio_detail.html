@@ -11,10 +11,11 @@
 
 <a class="btn btn-primary" href="{% url 'create_project' portfolio.id %}" role="button">New</a>
 <ul>
-    {% for project in portfolio.project_set.all %}
+    {% for proj in portfolio.project_set.all %}
 
-    <li>{{ project.title }}</a>
-    <a class="btn btn-primary" href="{{ project.get_absolute_url }}" role="button">View</a></li>
+        <li>{{ proj.title }}</a>
+        <a class="btn btn-primary" href="{{ proj.get_absolute_url }}" role="button">View</a>
+        <a class="btn btn-danger" href="{% url 'delete_project' proj.id portfolio.id %}" role ="button">Delete</a></li>
     {% endfor %}
 </ul>
 
