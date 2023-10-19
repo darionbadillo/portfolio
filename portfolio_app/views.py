@@ -35,16 +35,32 @@ def createProject(request, portfolio_id):
     return render(request, 'portfolio_app/project_form.html', context)
 
 # Deletes Projects
-
 def deleteProject(request, project_id, portfolio_id):
+    # Gets the project to delete
     project = get_object_or_404(Project, pk=project_id)
     
+    # Deletes the project if the request method is POST
     if request.method == 'POST':
         project.delete()
         return redirect('portfolio-detail', portfolio_id)
 
+    # Renders the delete project page
     context = {'project': project}
     return render(request, 'portfolio_app/delete_project.html', context)
+
+def updateProject(request, portfolio_id, project_id):
+    project = get_object_or_404(Project, pk=project_id)
+    
+    form = ProjectForm(instance=project)
+    if request.method == 'POST':
+        form = ProjectForm(request.POST, instance=project)
+        if form.is_valid():
+            form.save()
+            return redirect('update_project', project_id=project_id)
+        
+    context = {'form': form, 'portfolio_id': portfolio_id, 'project': project} 
+    return render(request, 'portfolio_app/update_project.html', context)
+
 
 class StudentListView(generic.ListView):
     model = Student
