@@ -36,14 +36,13 @@ def createProject(request, portfolio_id):
 
 # Deletes Projects
 
-def deleteProject(request, portfolio_id, project_id):
+def deleteProject(request, project_id, portfolio_id):
     project = get_object_or_404(Project, pk=project_id)
     
     if request.method == 'POST':
         project.delete()
         return redirect('portfolio-detail', portfolio_id)
 
-    # If the request method is not POST (e.g., GET), you can render a confirmation page here.
     context = {'project': project}
     return render(request, 'portfolio_app/delete_project.html', context)
 
