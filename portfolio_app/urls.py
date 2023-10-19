@@ -16,4 +16,5 @@ path('projects/<int:pk>', views.ProjectDetailView.as_view(), name='project-detai
 path('portfolio/<int:portfolio_id>/create_project/', views.createProject, name='create_project'),
 path('portfolio/<int:portfolio_id>/delete_project/<int:project_id>/', views.deleteProject, name='delete_project'),
 path('portfolio/<int:portfolio_id>/update_project/<int:project_id>/', views.updateProject, name='update_project'),
+path('portfolio/update_portfolio/<int:student_id>/', views.updatePortfolio, name='update_portfolio'),
 ]

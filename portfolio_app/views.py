@@ -3,7 +3,7 @@ from django.shortcuts import *
 from django.http import HttpResponse
 from django.views import generic
 from .models import Student, Portfolio, Project
-from .forms import ProjectForm
+from .forms import ProjectForm, PortfolioForm
     
 # Create your views here.
 def index(request):
@@ -56,9 +56,24 @@ def updateProject(request, portfolio_id, project_id):
         form = ProjectForm(request.POST, instance=project)
         if form.is_valid():
             form.save()
-            return redirect('update_project', project_id=project_id)
+            return redirect('portfolio-detail', portfolio_id)
         
     context = {'form': form, 'portfolio_id': portfolio_id, 'project': project} 
+    return render(request, 'portfolio_app/update_project.html', context)
+
+
+def updatePortfolio(request, student_id):
+    
+    portfolio = Portfolio.objects.get(id=student_id)    
+    
+    form = PortfolioForm(instance=portfolio)
+    if request.method == 'POST':
+        form = PortfolioForm(request.POST, instance=portfolio)
+        if form.is_valid():
+            form.save()
+            return redirect('student-detail', student_id)
+        
+    context = {'form': form, 'portfolio': portfolio, 'student': student_id} 
     return render(request, 'portfolio_app/update_project.html', context)
 
 
