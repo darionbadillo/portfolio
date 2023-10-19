@@ -22,4 +22,5 @@ urlpatterns = [
     
     #connect path to portfolio_app urls
     path('', include('portfolio_app.urls')),
+
 ]

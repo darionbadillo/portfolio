@@ -1,0 +1,23 @@
+{% extends 'portfolio_app/base_template.html' %}
+
+{% block content %}
+<h1>Portfolio Title: {{ portfolio.title }}</h1>
+
+<p><strong>Email:</strong> {{ portfolio.contact_email }}</p>
+<p><strong>Description:</strong> {{ portfolio.about }}</p>
+<p><strong>Active:</strong> {{ portfolio.is_active }}</p>
+
+<h3>Projects</h3>
+
+<a class="btn btn-primary" href="{% url 'create_project' portfolio.id %}" role="button">New</a>
+<ul>
+    {% for proj in portfolio.project_set.all %}
+
+        <li>{{ proj.title }}</a>
+        <a class="btn btn-primary" href="{{ proj.get_absolute_url }}" role="button">View</a>
+        <a class="btn btn-primary" href="{% url 'update_project' portfolio.id proj.id %}" role="button">Update</a>
+        <a class="btn btn-danger" href="{% url 'delete_project' portfolio.id proj.id %}" role ="button">Delete</a></li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

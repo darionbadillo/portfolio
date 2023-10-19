@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     #Add your app name here
+    'bootstrap5',
     'portfolio_app',
 ]
 
